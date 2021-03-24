@@ -1,0 +1,56 @@
+\documentclass{amsart}
+
+\newcommand{\upRiemannint}[2]{
+  \overline{\int_{#1}^{#2}}
+}
+
+\author{Arthur Chen}
+\title{Rudin Chapter 6}
+\date{\today}
+
+\begin{document}
+
+\section*{6.6 Integration and Differentiation}
+
+\begin{enumerate}
+
+\item[Problem 6.6:1]
+
+On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
+
+\begin{proof}
+
+First, we note that because $f \in \mathfrak{R}(\alpha)$ on $[a, b]$
+
+\[F(x) - F(t) = \int_a^x f(s)d\alpha(s) - \int_a^t f(s) d\alpha(s) = \int_t^x f(x) d\alpha(s)
+\]
+
+For all partitions $P$,
+
+\[
+\int_t^x f(x) d\alpha(s) 
+\leq \upRiemannint{t}{x} f(x) d\alpha(s) 
+= \sum_{x_i \in P} M_i \Delta \alpha_i
+\leq (\sup_{s \in [x, t]} f(s)) \sum_{x_i \in P} \Delta \alpha_i
+= (\sup_{s \in [x, t]} f(s))(\alpha(x) - \alpha(t))
+\]
+
+Since $\alpha(x)$ is strictly increasing, $\alpha(x) - \alpha(t) \neq 0$ when $x \neq t$, so
+
+\[
+\frac{F(x) - F(t)}{\alpha(x) - \alpha(t)} \leq \sup_{s \in [x, t]} f(s)
+\]
+
+Taking the limit as x approaches t on both sides and using the continuity of $f$ gives
+
+\[
+\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)} \leq f(x)
+\]
+
+The analogous result for the lower integral and the Squeeze Theorem complete the proof.
+
+\end{proof}
+
+\end{enumerate}
+
+\end{document}
