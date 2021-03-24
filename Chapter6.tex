@@ -4,6 +4,8 @@
   \overline{\int_{#1}^{#2}}
 }
 
+\newtheorem{lemma}{Lemma}[subsection]
+
 \author{Arthur Chen}
 \title{Rudin Chapter 6}
 \date{\today}
@@ -12,9 +14,7 @@
 
 \section*{6.6 Integration and Differentiation}
 
-\begin{enumerate}
-
-\item[Problem 6.6:1]
+\subsection*{Problem 6.6:1}
 
 On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
 
@@ -31,8 +31,8 @@ For all partitions $P$,
 \int_t^x f(x) d\alpha(s) 
 \leq \upRiemannint{t}{x} f(x) d\alpha(s) 
 = \sum_{x_i \in P} M_i \Delta \alpha_i
-\leq (\sup_{s \in [x, t]} f(s)) \sum_{x_i \in P} \Delta \alpha_i
-= (\sup_{s \in [x, t]} f(s))(\alpha(x) - \alpha(t))
+\leq \left(\sup_{s \in [x, t]} f(s) \right) \sum_{x_i \in P} \Delta \alpha_i
+= \left(\sup_{s \in [x, t]} f(s) \right) (\alpha(x) - \alpha(t))
 \]
 
 Since $\alpha(x)$ is strictly increasing, $\alpha(x) - \alpha(t) \neq 0$ when $x \neq t$, so
@@ -51,6 +51,97 @@ The analogous result for the lower integral and the Squeeze Theorem complete the
 
 \end{proof}
 
-\end{enumerate}
+\subsection*{Problem 6.6:2}
+
+\subsubsection*{(a)}
+
+Show that if $f$ is continuous, then
+
+\[
+\int_{t=1}^b \left(\int_{s=a}^t f(s) ds \right) dt
+= \int_{t=a}^b (b-t) f(t) dt
+\]
+
+\begin{proof}
+
+Let $x \in [a, b]$. Define $P(x) = \int_{t=a}^x \left(\int_{s=a}^t f(s) ds \right) dt$ and $Q(x) = \int_{t=a}^x (x-t) f(t) dt$.
+
+$f(t)$ being continuous on $[a, b]$ implies that it is Riemann-integrable. This implies that $f^*(t) = \int_{s=a}^t f(s) ds$ is continuous, and that $P(x)$ is continuous and differentiable. Similarly, $(b-t)f(t)$ is continuous on $[a, b]$, so $Q(x)$ is continuous and differentiable.
+
+By the Fundamental Theorem of Calculus,
+
+\[
+P'(x) = \int_{s=a}^x f(s) ds
+\]
+
+For $Q(x)$, since $t$ and $tf(t)$ are Riemann-integrable,
+
+\[
+Q(x) = x \int_{t=a}^x f(t) dt - \int_{t=a}^x t f(t) dt
+\]
+
+$x$ is trivially differentiable. Since $t$ and $tf(t)$ are continuous,
+
+\[
+Q'(x) = \int_{t=a}^x f(t) dt + x f(x) - x f(x) = \int_{t=a}^x f(t) dt
+\]
+
+Thus, $P'(x) = Q'(x)$. Integrating both sides from $a$ to $c$, then setting $c = b$, produces the desired result.
+
+\end{proof}
+
+\subsubsection*{(c)}
+
+Show that the result of Part (a) continues to hold if $f$ is merely assumed Riemann-integrable, but not necessarily continuous.
+
+\begin{proof}
+
+$P(x)$ has the same derivative as in Part (a), as the derivation only assumed that $P(x)$ is Riemann-integrable. Similarly, for $x_0 \in [a, b]$ where $f(x_0)$ is continuous, the above derivations hold for $Q(x)$.
+
+Let $x_0$ be a point where $f(x_0)$ is discontinuous. First, we will prove two lemmas.
+
+\begin{lemma}
+\label{boundedIsCont}
+
+If $f(x)$ is bounded, then $(x - x_0) f(x)$ is continuous at $x_0$.
+
+\begin{proof}
+
+Let $M = \sup |f(x)|$. Then $(x - x_0) f(x) \leq |(x - x_0) f(x)| \leq |(x - x_0)| M$, which can be made arbitrarily small.
+
+\end{proof}
+\end{lemma}
+
+\begin{lemma}
+\label{contIsDiff}
+
+If $f(x)$ is continuous, then $(x - x_0) f(x)$ is differentiable at $x_0$ with derivative $f(x_0)$.
+
+\begin{proof}
+
+By the definition of differentiability,
+
+\[
+\lim_{x \to x_0} \frac{(x - x_0) f(x) - (x_0 - x_0) f(x_0)}{x - x_0}
+= \lim_{x \to x_0} f(x) = f(x_0)
+\]
+
+by continuity.
+
+\end{proof}
+\end{lemma}
+
+We can rewrite $Q(x)$ as
+
+\[
+Q(x) = \int_{t=a}^x ((x-x_0) + (x_0-t)) f(t) dt
+= (x-x_0) \int_{t=a}^x f(t) dt + \int_{t=a}^x (x_0-t)f(t) dt
+\]
+
+because the sub-functions are trivially Riemann-integrable. $\int_{t=a}^x f(t)$ is a continuous function, so by Lemma \ref{contIsDiff} $(x-x_0) \int_{t=a}^x f(t) dt$ is differentiable at $x = x_0$ with derivative $\int_{t=a}^{x_0} f(t) dt$. Similarly, $f(t)$ is bounded because it is Riemann-integrable, so by Lemma \ref{boundedIsCont} $(x_0-t)f(t)$ is continuous at $t = x_0$. Therefore $\int_{t=a}^x (x_0-t)f(t) dt$ is differentiable at $x = x_0$, with derivative $0$.
+
+Therefore, $Q(x)$ is differentiable at $x = x_0$, and $Q'(x_0) = \int_{t=a}^x f(t) dt$. The proof then follows using the same logic as in Part (a).
+
+\end{proof}
 
 \end{document}
