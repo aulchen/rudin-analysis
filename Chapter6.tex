@@ -54,7 +54,7 @@ Taking the limit as $t$ approaches $x$ on both sides gives
 
 \begin{proof}
 
-Let $x_n$ be an arbitrary sequence in $(x, t]$ converging to $x$. Since $[x, x_n]$ is a closed, bounded interval on $\mathbb{R}$ and $f$ is continuous, there exists a sequence of points $p_n \in [x, x_n]$ such that $f(p_n) =  \sup_{s \in [x, x_n]} f(s)$. $x_n \rightarrow x$ implies $p_n \rightarrow x$ by the Squeeze Theorem, and the continuity of $f$ implies that $f(p_n) \rightarrow f(x)$.
+Let $x_n$ be an arbitrary sequence such that $\forall n \in \mathbb{N}, x_n > x$ and $\lim_{n \to \infty} x_n = x$. Since $[x, x_n]$ is a closed, bounded interval on $\mathbb{R}$ and $f$ is continuous, there exists a sequence of points $p_n \in [x, x_n]$ such that $f(p_n) =  \sup_{s \in [x, x_n]} f(s)$. $x_n \rightarrow x$ implies $p_n \rightarrow x$ by the Squeeze Theorem, and the continuity of $f$ implies that $f(p_n) \rightarrow f(x)$.
 
 \end{proof}
 \end{lemma}
