@@ -28,20 +28,38 @@ First, we note that because $f \in \mathfrak{R}(\alpha)$ on $[a, b]$
 For all partitions $P$,
 
 \[
-\int_t^x f(x) d\alpha(s) 
-\leq \upRiemannint{t}{x} f(x) d\alpha(s) 
-= \sum_{x_i \in P} M_i \Delta \alpha_i
+\int_t^x f(s) d\alpha(s)
+\leq \sum_{x_i \in P} M_i \Delta \alpha_i
 \leq \left(\sup_{s \in [x, t]} f(s) \right) \sum_{x_i \in P} \Delta \alpha_i
 = \left(\sup_{s \in [x, t]} f(s) \right) (\alpha(x) - \alpha(t))
 \]
 
-Since $\alpha(x)$ is strictly increasing, $\alpha(x) - \alpha(t) \neq 0$ when $x \neq t$, so
+Since $\alpha(x)$ is strictly increasing, $\alpha(x) - \alpha(t) > 0$ when $x \neq t$, so
 
 \[
 \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)} \leq \sup_{s \in [x, t]} f(s)
 \]
 
-Taking the limit as x approaches t on both sides and using the continuity of $f$ gives
+Taking the limit as $t$ approaches $x$ on both sides gives
+
+\[
+\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)} \leq \lim_{t \to x} \sup_{s \in [x, t]} f(s)
+\]
+
+\begin{lemma}
+
+\[
+\lim_{t \to x} \sup_{s \in [x, t]} f(s) = f(x)
+\]
+
+\begin{proof}
+
+Let $x_n$ be an arbitrary sequence in $(x, t]$ converging to $x$. Since $[x, x_n]$ is a closed, bounded interval on $\mathbb{R}$ and $f$ is continuous, there exists a sequence of points $p_n \in [x, x_n]$ such that $f(p_n) =  \sup_{s \in [x, x_n]} f(s)$. $x_n \rightarrow x$ implies $p_n \rightarrow x$ by the Squeeze Theorem, and the continuity of $f$ implies that $f(p_n) \rightarrow f(x)$.
+
+\end{proof}
+\end{lemma}
+
+Thus
 
 \[
 \lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)} \leq f(x)
@@ -58,7 +76,7 @@ The analogous result for the lower integral and the Squeeze Theorem complete the
 Show that if $f$ is continuous, then
 
 \[
-\int_{t=1}^b \left(\int_{s=a}^t f(s) ds \right) dt
+\int_{t=a}^b \left(\int_{s=a}^t f(s) ds \right) dt
 = \int_{t=a}^b (b-t) f(t) dt
 \]
 
