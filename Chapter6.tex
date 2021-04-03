@@ -1,7 +1,7 @@
 \documentclass{amsart}
 
-\newcommand{\upRiemannint}[2]{
-  \overline{\int_{#1}^{#2}}
+\newcommand{\RiemannIntable}{
+  \mathfrak{R}
 }
 
 \newtheorem{lemma}{Lemma}[subsection]
@@ -20,7 +20,7 @@ On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous
 
 \begin{proof}
 
-First, we note that because $f \in \mathfrak{R}(\alpha)$ on $[a, b]$
+First, we note that because $f \in \RiemannIntable(\alpha)$ on $[a, b]$
 
 \[F(x) - F(t) = \int_a^x f(s)d\alpha(s) - \int_a^t f(s) d\alpha(s) = \int_t^x f(x) d\alpha(s)
 \]
@@ -84,7 +84,7 @@ Show that if $f$ is continuous, then
 
 Let $x \in [a, b]$. Define $P(x) = \int_{t=a}^x \left(\int_{s=a}^t f(s) ds \right) dt$ and $Q(x) = \int_{t=a}^x (x-t) f(t) dt$.
 
-$f(t)$ being continuous on $[a, b]$ implies that it is Riemann-integrable. This implies that $f^*(t) = \int_{s=a}^t f(s) ds$ is continuous, and that $P(x)$ is continuous and differentiable. Similarly, $(b-t)f(t)$ is continuous on $[a, b]$, so $Q(x)$ is continuous and differentiable.
+$f(t)$ being continuous on $[a, b]$ implies that it is Riemann-integrable. This implies that $f^*(t) = \int_{s=a}^t f(s) ds$ is continuous, and that $P(x) = \int_a^x f^*(t)dt$ is continuous and differentiable. Similarly, $(b-t)f(t)$ is continuous on $[a, b]$, so $Q(x)$ is continuous and differentiable.
 
 By the Fundamental Theorem of Calculus,
 
@@ -159,6 +159,39 @@ Q(x) = \int_{t=a}^x ((x-x_0) + (x_0-t)) f(t) dt
 because the sub-functions are trivially Riemann-integrable. $\int_{t=a}^x f(t)$ is a continuous function, so by Lemma \ref{contIsDiff} $(x-x_0) \int_{t=a}^x f(t) dt$ is differentiable at $x = x_0$ with derivative $\int_{t=a}^{x_0} f(t) dt$. Similarly, $f(t)$ is bounded because it is Riemann-integrable, so by Lemma \ref{boundedIsCont} $(x_0-t)f(t)$ is continuous at $t = x_0$. Therefore $\int_{t=a}^x (x_0-t)f(t) dt$ is differentiable at $x = x_0$, with derivative $0$.
 
 Therefore, $Q(x)$ is differentiable at $x = x_0$, and $Q'(x_0) = \int_{t=a}^x f(t) dt$. The proof then follows using the same logic as in Part (a).
+
+\end{proof}
+
+\subsection*{Problem 6.6:4}
+
+Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasing nonnegative functions on $[a, b]$ such that $f \in \RiemannIntable(\alpha) \cap \RiemannIntable(\beta)$, $\alpha \in \RiemannIntable(\beta)$, and $\beta \in \RiemannIntable(\alpha)$. Prove that
+
+\[
+\int f d(\alpha \beta) = \int f \alpha d(\beta) + \int f \beta d(\alpha)
+\]
+
+\begin{proof}
+
+We first begin with a lemma.
+
+\begin{lemma}
+
+Let $\alpha$ and $\beta$ be monotonically increasing non-negative functions with $\alpha \in \RiemannIntable(\beta)$. Then for all $\epsilon > 0$, there exists a partition $P$ such that on intervals $[x_{i-1}, x_i]$ where $\Delta \alpha_i > \epsilon$, $\Delta \beta_i < \epsilon$, and on intervals $[x_{i-1}, x_i]$ where $\Delta \beta_i > \epsilon$, $\Delta \alpha_i < \epsilon$.
+
+\begin{proof}
+Because $\alpha \in \RiemannIntable(\beta)$ and $\alpha$ is monotonically increasing, for all $\epsilon > 0$, there exists a partition $P$ such that
+
+\[
+\sum_{i \in P} [ \sup_{x \in [x_{i-1}, x_i]} \alpha(x) 
+- \inf_{x \in [x_{i-1}, x_i]} \alpha(x) ]
+\Delta \beta_i
+= \sum_{i \in P} \Delta \alpha_i \Delta \beta_i < \epsilon
+\]
+
+Because $\alpha$ and $\beta$ are monotonic and increasing, the terms in the summation are nonnegative. Thus for all $i$ in partition $P$, $\Delta \alpha_i \Delta \beta_i < \epsilon$. The lemma follows by letting $\epsilon = \epsilon^2$.
+
+\end{proof}
+\end{lemma}
 
 \end{proof}
 
