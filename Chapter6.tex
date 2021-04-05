@@ -1,10 +1,12 @@
 \documentclass{amsart}
+\usepackage{mathtools}
 
 \newcommand{\RiemannIntable}{
   \mathfrak{R}
 }
 
-\newtheorem{lemma}{Lemma}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}{Lemma}[subsubsection]
 
 \author{Arthur Chen}
 \title{Rudin Chapter 6}
@@ -172,9 +174,10 @@ Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasin
 
 \begin{proof}
 
-We first begin with a lemma.
+We first begin with two lemmas.
 
 \begin{lemma}
+\label{alphaAndBeta}
 
 Let $\alpha$ and $\beta$ be monotonically increasing non-negative functions with $\alpha \in \RiemannIntable(\beta)$. Then for all $\epsilon > 0$, there exists a partition $P$ such that on intervals $[x_{i-1}, x_i]$ where $\Delta \alpha_i > \epsilon$, $\Delta \beta_i < \epsilon$, and on intervals $[x_{i-1}, x_i]$ where $\Delta \beta_i > \epsilon$, $\Delta \alpha_i < \epsilon$.
 
@@ -192,6 +195,53 @@ Because $\alpha$ and $\beta$ are monotonic and increasing, the terms in the summ
 
 \end{proof}
 \end{lemma}
+
+\begin{lemma}
+\label{supAndInf}
+
+Let $f$ and $\alpha$ be real-valued functions on $[a, b]$, with $\alpha$ non-negative and weakly monotonically increasing. Then the following are true.
+
+\begin{itemize}
+	\item If $\sup f > 0$, then $\sup (f \alpha) \leq \sup(f) \alpha(b)$
+	\item If $\sup f \leq 0$, then $\sup (f \alpha) \leq \sup(f) \alpha(a)$
+\end{itemize}
+
+\begin{proof}
+TODO
+\end{proof}
+\end{lemma}
+
+We now find an upper bound for the difference.
+
+\begin{theorem}
+\[
+\int f\alpha d\beta + \int f\beta d\alpha - \int f d(\alpha\beta) \leq 0
+\]
+
+\begin{proof}
+Let $\epsilon > 0$ and partition $P$ be a partition that satisfies Lemma \ref{alphaAndBeta}. By the Lemma, we can divide the interval $[a, b]$ into two sets
+
+\[C \coloneqq \{i \leq N | \Delta\alpha_i < \epsilon \} \]
+
+\[D \coloneqq \{i \leq N | \Delta\alpha_i \geq \epsilon, \Delta\beta_i \leq \epsilon \} \]
+
+Restricting our attention to $C$, by upper and lower integrals,
+\[
+\int f\alpha d\beta + \int f\beta d\alpha - \int f d(\alpha\beta) 
+\leq \sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\alpha) \Delta\beta_i
++ \sup_{x \in[x_i, x_{i-1}]} (f\beta) \Delta\alpha_i
+- m_i \Delta(\alpha\beta)_i
+\]
+
+By assumption on $C$,
+
+Similarly, 
+\[
+\sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\beta) \Delta\alpha_i < \sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\beta) \epsilon
+\]
+
+\end{proof}
+\end{theorem}
 
 \end{proof}
 
