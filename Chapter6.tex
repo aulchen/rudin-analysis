@@ -228,17 +228,46 @@ Let $\epsilon > 0$ and partition $P$ be a partition that satisfies Lemma \ref{al
 Restricting our attention to $C$, by upper and lower integrals,
 \[
 \int f\alpha d\beta + \int f\beta d\alpha - \int f d(\alpha\beta) 
-\leq \sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\alpha) \Delta\beta_i
+\leq
+\sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\alpha) \Delta\beta_i
 + \sup_{x \in[x_i, x_{i-1}]} (f\beta) \Delta\alpha_i
 - m_i \Delta(\alpha\beta)_i
 \]
 
-By assumption on $C$,
+By Lemma \ref{supAndInf}, 
+\[
+\sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\alpha) \Delta\beta_i
+\leq
+\sum_{i \in C} M_i \alpha(x_i) \Delta\beta_i
+\]
 
-Similarly, 
+
+By assumption on $C$, 
 \[
 \sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\beta) \Delta\alpha_i < \sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\beta) \epsilon
 \]
+
+Similarly,
+
+\[
+m_i \Delta(\alpha\beta)_i = m_i (\alpha_i \beta_i - \alpha_{i-1} \beta_{i-1})
+\geq m_i \Delta(\alpha\beta)_i = m_i (\alpha_i \beta_i - (\alpha_{i} - \epsilon) \beta_{i-1})
+= m_i \alpha_i \Delta\beta + m_i \beta_{i-1} \epsilon
+\]
+
+Putting it all together,
+\begin{align*}
+&\sum_{i \in C} \sup_{x \in[x_i, x_{i-1}]} (f\alpha) \Delta\beta_i
++ \sup_{x \in[x_i, x_{i-1}]} (f\beta) \Delta\alpha_i
+- m_i \Delta(\alpha\beta)_i \\
+\leq
+&\sum_{i \in C} M_i \alpha(x_i) \Delta\beta_i
++ \sup_{x \in[x_i, x_{i-1}]} (f\beta) \epsilon
+- m_i \alpha_i \Delta\beta + m_i \beta_{i-1} \epsilon \\
+=
+&\sum_{i \in C} (M_i - m_i) \alpha(x_i) \Delta\beta_i
++ \epsilon \sum_{i \in C} (\sup_{x \in[x_i, x_{i-1}]} (f\beta) + m_i \beta_{i-1})
+\end{align*}
 
 \end{proof}
 \end{theorem}
