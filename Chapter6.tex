@@ -181,9 +181,9 @@ Note that the function $1$ is trivially Riemann-Stieltjes integrable with respec
 Due to Riemann-integrability, there are partitions $P$, $P_1$, and $P_2$ such that
 
 \begin{align*}
-& 0 \leq |\int d(\alpha\beta) - \sum_{i \in P} \Delta(\alpha\beta)_i | \leq \frac{\epsilon}{3} \\
-& 0 \leq |\int \alpha d(\beta) - \sum_{i \in P_1} \alpha_i \Delta\beta | \leq \frac{\epsilon}{3} \\
-& 0 \leq |\int \beta d(\alpha) - \sum_{i \in P_2} \beta_{i-1} \Delta\alpha | \leq \frac{\epsilon}{3} \\
+& 0 \leq |\int d(\alpha\beta) - \sum_{j \in P} \Delta(\alpha\beta)_j | \leq \frac{\epsilon}{3} \\
+& 0 \leq |\int \alpha d(\beta) - \sum_{k \in P_1} \alpha_k \Delta\beta | \leq \frac{\epsilon}{3} \\
+& 0 \leq |\int \beta d(\alpha) - \sum_{l \in P_2} \beta_{l-1} \Delta\alpha | \leq \frac{\epsilon}{3} \\
 \end{align*}
 
 Taking the common partition $P^* = P \cup P_1 \cup P_2$ and using the Triangle Inequality,
@@ -224,6 +224,28 @@ Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasin
 \]
 
 \begin{proof}
+
+We first begin with a lemma.
+
+\begin{lemma}
+
+Let $f \in \RiemannIntable (\alpha)$ on $[a, b]$, and $P = x_0 < x_1 ... < x_n$ such that $U(P, f, \alpha) - L(P, f, \alpha) < \epsilon$. Let $t_1, t_2 ... t_n$ be a set of points such that $t_i \in [x_{i-1}, x_i]$. Then 
+
+\[
+U(P, f, \alpha) - \sum_{i = 1}^n f(t_i) (\alpha(x_i) - \alpha(x_{i-1})) < \epsilon
+\]
+and
+\[
+\sum_{i = 1}^n f(t_i) (\alpha(x_i)) - \alpha(x_{i-1}) - L(P, f, \alpha) < \epsilon
+\]
+
+\begin{proof}
+Tautologically, $inf_{[x_{i-1} - x_i]} \leq f(t_i) \leq sup_{[x_{i-1} - x_i]}$.
+
+FINISH THIS.
+\end{proof}
+
+\end{lemma}
 
 \end{proof}
 TODO
