@@ -1,5 +1,6 @@
 \documentclass{amsart}
 \usepackage{mathtools}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
 
 \newcommand{\RiemannIntable}{
   \mathfrak{R}
@@ -225,28 +226,64 @@ Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasin
 
 \begin{proof}
 
-We first begin with a lemma.
+Note that from previous results in Problem 6.2.1, $f \in \RiemannIntable(\alpha) \cap \RiemannIntable(\beta)$ implies $f \in \RiemannIntable(\alpha \beta)$. Since all of the above Riemann integrals are well-defined, for arbitrary $\epsilon > 0$, let $P_1$, $P_2$, and $P_3$ be partitions of $[a, b]$ such that
 
-\begin{lemma}
+\begin{enumerate}
+\item $U(P_1, f, \alpha\beta) - L(P_1, f, \alpha\beta) < \epsilon$
+\item $U(P_2, f\alpha, \beta) - L(P_2, f\alpha, \beta) < \epsilon$
+\item $U(P_3, f\beta, \alpha) - L(P_3, f\beta, \alpha) < \epsilon$
+\end{enumerate}
 
-Let $f \in \RiemannIntable (\alpha)$ on $[a, b]$, and $P = x_0 < x_1 ... < x_n$ such that $U(P, f, \alpha) - L(P, f, \alpha) < \epsilon$. Let $t_1, t_2 ... t_n$ be a set of points such that $t_i \in [x_{i-1}, x_i]$. Then 
+Let $P$ be their common partition. Let $x_0 < x_1 ... < x_n$ denote the points of $P$. For all $i$ in $(1, 2...n)$, let $t_i \in (x_{i-1}, x_i)$ be arbitrary, fixed points, and let $P^* = (x_0, t_1, x_1 ... x_{i-1}, t_i, x_i ... t_n, x_n)$. Trivially, $P^*$ partitions $[a, b]$ and is a refinement of $P$.
+
+Consider $\int f d(\alpha\beta)$ and its associated Riemann-Stieltjes sum over $P^*$. Since $P^*$ is a refinement of $P_1$, for arbitrary points $u_i \in [x_{i-1}, t_i]$ and $v_i \in [t_i, x_i]$,
 
 \[
-U(P, f, \alpha) - \sum_{i = 1}^n f(t_i) (\alpha(x_i) - \alpha(x_{i-1})) < \epsilon
+\abs*{ \sum_{i=1}^n \left[f(u_i)(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
++ f(v_i)(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i})\right]
+- \int f d(\alpha\beta)}
+< \epsilon
 \]
-and
+
+Letting $u_i = x_{i-1}$ and $v_i = x_i$ for all $i$,
+
 \[
-\sum_{i = 1}^n f(t_i) (\alpha(x_i)) - \alpha(x_{i-1}) - L(P, f, \alpha) < \epsilon
+\abs*{ \sum_{i=1}^n \left[f_{x_{i-1}}(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
++ f_{x_i}(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i})\right]
+- \int f d(\alpha\beta)}
+< \epsilon
 \]
 
-\begin{proof}
-Tautologically, $inf_{[x_{i-1} - x_i]} \leq f(t_i) \leq sup_{[x_{i-1} - x_i]}$.
+Now consider $\int f\alpha d(\beta)$ and its associated Riemann-Stieltjes sum over $P$. Letting $u_i = x_i$ for all $i$,
 
-FINISH THIS.
+\[
+\abs*{ \sum_{i=1}^n \left[f_{x_i}\alpha_{x_i}(\beta_{x_i} - \beta_{x_{i-1}})\right]
+- \int f\alpha d(\beta)}
+< \epsilon
+\]
+
+Similarly, considering $\int f\beta d(\alpha)$ over $P$ and letting $u_i = x_{i-1}$ for all $i$,
+
+\[
+\abs*{ \sum_{i=1}^n \left[f_{x_{i-1}}\beta_{x_{i-1}}(\alpha_{x_i} - \alpha_{x_{i-1}})\right]
+- \int f\beta d(\alpha)}
+< \epsilon
+\]
+
+Adding the inequalities and using the Triangle Inequality gives
+
+\begin{align*}
+\bigg|
+\int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) & \\
+\sum_{i=1}^n \Big[
+-\left[f_{x_{i-1}}(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
++ f_{x_i}(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i}) \right] & \\
++ f_{x_i}\alpha_{x_i}(\beta_{x_i} - \beta_{x_{i-1}})
++ f_{x_{i-1}}\beta_{x_{i-1}}(\alpha_{x_i} - \alpha_{x_{i-1}})
+\Big] \bigg| &
+< 3\epsilon
+\end{align*}
+
 \end{proof}
 
-\end{lemma}
-
-\end{proof}
-TODO
 \end{document}
