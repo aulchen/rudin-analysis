@@ -175,7 +175,42 @@ Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasin
 
 \begin{proof}
 
-Note that from previous results in Problem 6.2.1, $f \in \RiemannIntable(\alpha) \cap \RiemannIntable(\beta)$ implies $f \in \RiemannIntable(\alpha \beta)$. Since all of the above Riemann integrals are well-defined, for arbitrary $\epsilon > 0$, let $P_1$, $P_2$, and $P_3$ be partitions of $[a, b]$ such that
+First note that $f\alpha \in \RiemannIntable(\beta)$ and $f\beta \in \RiemannIntable(\alpha)$, so the right-side integrals exist. Also note that $\alpha\beta$ is monotonically increasing, so $\alpha\beta$ is a valid integrator.
+
+We first begin by proving that the left-hand integral exists.
+
+\begin{lemma}
+Let $\alpha$ and $\beta$ be monotonically increasing non-negative functions with $\alpha \in \RiemannIntable(\beta)$. Then for all $\epsilon > 0$, there exists a partition $P$ such that on all intervals $[x_{i-1}, x_i]$, at least one of $\Delta\alpha_i$ or $\Delta\beta_i$ is less than or equal to $\epsilon$.
+\begin{proof}
+
+Because $\alpha \in \RiemannIntable(\beta)$ and $\alpha$ is monotonically increasing, for all $\epsilon > 0$, there exists a partition $P$ such that
+
+\[
+\sum_{i \in P} [ \sup_{x \in [x_{i-1}, x_i]} \alpha(x) 
+- \inf_{x \in [x_{i-1}, x_i]} \alpha(x) ]
+\Delta \beta_i
+= \sum_{i \in P} \Delta \alpha_i \Delta \beta_i < \epsilon
+\]
+
+Because $\alpha$ and $\beta$ are monotonic and increasing, the terms in the summation are nonnegative. Thus for all $i$ in partition $P$, $\Delta \alpha_i \Delta \beta_i < \epsilon$.
+
+Let $\epsilon = \epsilon^2$. Then $\Delta\alpha_i > \epsilon$ implies $\Delta\beta_i < \epsilon$, and vice-versa, implying that at least one of $\Delta\alpha_i$ or $\Delta\beta_i$ is less than or equal to $\epsilon$.
+
+\end{proof}
+\end{lemma}
+
+\begin{theorem}
+Let $f$ be a function on $[a, b]$, $\alpha$, $\beta$ monotonically increasing non-negative functions on $[a, b]$, and $f \in \RiemannIntable(\alpha)$. Then $f \in \RiemannIntable(\alpha\beta)$.
+\begin{proof}
+For all partitions $P$ of $[a, b]$,
+\[
+\sum_{i=1}^n (M_i - m_i)(\alpha_i\beta_i - \alpha_{i-1}\beta_{i-1})
+< \sum_{i=1}^n (M_i - m_i)\beta_i(\alpha_i\beta_i - \alpha_{i-1}\beta_{i-1})
+\]
+\end{proof}
+\end{theorem}
+
+Now we work on evaluating the left-hand integral. For arbitrary $\epsilon > 0$, let $P_1$, $P_2$, and $P_3$ be partitions of $[a, b]$ such that
 
 \begin{enumerate}
 \item $U(P_1, f, \alpha\beta) - L(P_1, f, \alpha\beta) < \epsilon$
