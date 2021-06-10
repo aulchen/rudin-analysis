@@ -175,42 +175,37 @@ Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasin
 
 \begin{proof}
 
-First note that $f\alpha \in \RiemannIntable(\beta)$ and $f\beta \in \RiemannIntable(\alpha)$, so the right-side integrals exist. Also note that $\alpha\beta$ is monotonically increasing, so $\alpha\beta$ is a valid integrator.
-
-We first begin by proving that the left-hand integral exists.
-
-\begin{lemma}
-Let $\alpha$ and $\beta$ be monotonically increasing non-negative functions with $\alpha \in \RiemannIntable(\beta)$. Then for all $\epsilon > 0$, there exists a partition $P$ such that on all intervals $[x_{i-1}, x_i]$, at least one of $\Delta\alpha_i$ or $\Delta\beta_i$ is less than or equal to $\epsilon$.
-\begin{proof}
-
-Because $\alpha \in \RiemannIntable(\beta)$ and $\alpha$ is monotonically increasing, for all $\epsilon > 0$, there exists a partition $P$ such that
-
-\[
-\sum_{i \in P} [ \sup_{x \in [x_{i-1}, x_i]} \alpha(x) 
-- \inf_{x \in [x_{i-1}, x_i]} \alpha(x) ]
-\Delta \beta_i
-= \sum_{i \in P} \Delta \alpha_i \Delta \beta_i < \epsilon
-\]
-
-Because $\alpha$ and $\beta$ are monotonic and increasing, the terms in the summation are nonnegative. Thus for all $i$ in partition $P$, $\Delta \alpha_i \Delta \beta_i < \epsilon$.
-
-Let $\epsilon = \epsilon^2$. Then $\Delta\alpha_i > \epsilon$ implies $\Delta\beta_i < \epsilon$, and vice-versa, implying that at least one of $\Delta\alpha_i$ or $\Delta\beta_i$ is less than or equal to $\epsilon$.
-
-\end{proof}
-\end{lemma}
+First note that $f\alpha \in \RiemannIntable(\beta)$ and $f\beta \in \RiemannIntable(\alpha)$. Also note that $\alpha\beta$ is monotonically increasing, so $\alpha\beta$ is a valid integrator.
 
 \begin{theorem}
-Let $f$ be a function on $[a, b]$, $\alpha$, $\beta$ monotonically increasing non-negative functions on $[a, b]$, and $f \in \RiemannIntable(\alpha)$. Then $f \in \RiemannIntable(\alpha\beta)$.
+Under the assumptions of Problem 6.6.4, $f \in \RiemannIntable(\alpha\beta)$.
 \begin{proof}
-For all partitions $P$ of $[a, b]$,
+
+First note that by expanding the terms,
 \[
-\sum_{i=1}^n (M_i - m_i)(\alpha_i\beta_i - \alpha_{i-1}\beta_{i-1})
-< \sum_{i=1}^n (M_i - m_i)\beta_i(\alpha_i\beta_i - \alpha_{i-1}\beta_{i-1})
+\alpha_i\beta_i - \alpha_{i-1}\beta_{i-1} = (\alpha_i - \alpha_{i-1})(\beta_i - \ \beta_{i-1})
++ \alpha_{i-1}(\beta_i - \beta_{i-1}) + \beta_{i-1}(\alpha_i - \alpha_{i-1})
 \]
+
+Writing out the difference between the upper and lower Riemann sums,
+
+\begin{align*}
+& \sum_{i=1}^n (M_i - m_i)(\alpha_i\beta_i - \alpha_{i-1}\beta_{i-1}) \\
+= & \sum_{i=1}^n (M_i - m_i)\Delta\alpha_i \Delta\beta_i
++ \sum_{i=1}^n (M_i - m_i)\alpha_{i-1} \Delta\beta_i
++ \sum_{i=1}^n (M_i - m_i)\beta_{i-1} \Delta\alpha_i \\
+\leq 
+& \alpha(b)\sum_{i=1}^n (M_i - m_i) \Delta\beta_i
++ \alpha(b)\sum_{i=1}^n (M_i - m_i) \Delta\beta_i
++ \beta(b)\sum_{i=1}^n (M_i - m_i) \Delta\alpha_i
+\end{align*}
+
+The third line follows because all terms are positive, and $\alpha$ and $\beta$ are monotonically increasing. Because $f \in \RiemannIntable(\alpha)\cap \RiemannIntable(\beta)$, the third line can be made arbitrarily small.
+
 \end{proof}
 \end{theorem}
 
-Now we work on evaluating the left-hand integral. For arbitrary $\epsilon > 0$, let $P_1$, $P_2$, and $P_3$ be partitions of $[a, b]$ such that
+Now we prove the main result. For arbitrary $\epsilon > 0$, let $P_1$, $P_2$, and $P_3$ be partitions of $[a, b]$ such that
 
 \begin{enumerate}
 \item $U(P_1, f, \alpha\beta) - L(P_1, f, \alpha\beta) < \epsilon$
@@ -256,17 +251,17 @@ Similarly, considering $\int f\beta d(\alpha)$ over $P$ and letting $u_i = x_{i-
 
 Adding the inequalities and using the Triangle Inequality gives
 
-\begin{align*}
+\begin{gather*}
 \bigg|
-\int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) & \\
+\int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) \\
 + \sum_{i=1}^n \Big[
 -\left[f_{x_{i-1}}(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
-+ f_{x_i}(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i}) \right] & \\
++ f_{x_i}(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i}) \right] \\
 + f_{x_i}\alpha_{x_i}(\beta_{x_i} - \beta_{x_{i-1}})
 + f_{x_{i-1}}\beta_{x_{i-1}}(\alpha_{x_i} - \alpha_{x_{i-1}})
-\Big] \bigg| &
+\Big] \bigg|
 < 3\epsilon
-\end{align*}
+\end{gather*}
 
 Simplifying,
 
@@ -283,11 +278,12 @@ To analyze the sum on the right, note that
 
 \begin{align*}
 \bigg|
-\sum_{i=1}^n \Big[(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}})
-\bigg| & \leq \\
-\sum_{i=1}^n \left|f_{x_i} - f_{x_{i-1}}\right| \left|\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}}\right| & \leq \\
-\sum_{i=1}^n \left(\sup_{x \in [x_{i-1}, x_i]} f(x) - \inf_{x \in [x_{i-1}, x_i]} f(x)\right)
-\left(\alpha_{x_i}\beta_{x_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}}\right) & < \epsilon
+&\sum_{i=1}^n \Big[(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}})
+\bigg| \\
+\leq &\sum_{i=1}^n \left|f_{x_i} - f_{x_{i-1}}\right| \left|\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}}\right| \\
+\leq &\sum_{i=1}^n \left(\sup_{x \in [x_{i-1}, x_i]} f(x) - \inf_{x \in [x_{i-1}, x_i]} f(x)\right)
+\left(\alpha_{x_i}\beta_{x_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}}\right) \\
+< &\epsilon
 \end{align*}
 
 The second inequality comes from noticing that $t_i$ is in $(x_{i-1}, x_i)$, and that $\alpha\beta$ is weakly increasing. The third inequality comes from $P$ being a refinement of $P_1$. Thus
