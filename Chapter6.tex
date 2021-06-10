@@ -165,57 +165,6 @@ Therefore, $Q(x)$ is differentiable at $x = x_0$, and $Q'(x_0) = \int_{t=a}^x f(
 
 \end{proof}
 
-To build intuition for Problem 6.6:4, we first solve a special case.
-
-\subsection*{Problem 6.6:4 Special Case}
-
-Let $\alpha$, $\beta$ be monotonically increasing nonnegative functions on $[a, b]$ such that $\alpha \in \RiemannIntable(\beta)$, and $\beta \in \RiemannIntable(\alpha)$. Prove that
-
-\[
-\int d(\alpha \beta) = \int \alpha d(\beta) + \int \beta d(\alpha)
-\]
-
-\begin{proof}
-
-Note that the function $1$ is trivially Riemann-Stieltjes integrable with respect to $\alpha \beta$.
-
-Due to Riemann-integrability, there are partitions $P$, $P_1$, and $P_2$ such that
-
-\begin{align*}
-& 0 \leq |\int d(\alpha\beta) - \sum_{j \in P} \Delta(\alpha\beta)_j | \leq \frac{\epsilon}{3} \\
-& 0 \leq |\int \alpha d(\beta) - \sum_{k \in P_1} \alpha_k \Delta\beta | \leq \frac{\epsilon}{3} \\
-& 0 \leq |\int \beta d(\alpha) - \sum_{l \in P_2} \beta_{l-1} \Delta\alpha | \leq \frac{\epsilon}{3} \\
-\end{align*}
-
-Taking the common partition $P^* = P \cup P_1 \cup P_2$ and using the Triangle Inequality,
-
-\[
-0 \leq |
-\int \alpha d(\beta) + \int \beta d(\alpha) - \int d(\alpha\beta)
-+ \sum_{i \in P^*} (- \Delta(\alpha\beta)_i + \alpha_i \Delta\beta + \beta_{i-1} \Delta\alpha)
-| \leq \epsilon
-\]
-
-For any partition $P$,
-
-\begin{align*}
-&\alpha_i \Delta\beta_i + \beta_{i-1} \Delta\alpha_i \\
-= &\alpha_i \beta_i - \alpha_i \beta_{i-1} + \alpha_i \beta_{i-1} - \alpha_{i-1} \beta_{i-1} \\
-= & \alpha_i\beta_i - \alpha_{i-1} \beta_{i-1} \\
-= & \Delta(\alpha\beta)_i
-\end{align*}
-
-Substituting,
-
-\[
-0 \leq |
-\int \alpha d(\beta) + \int \beta d(\alpha) - \int d(\alpha\beta)| \leq \epsilon
-\]
-
-Since $\epsilon$ can be made arbitrarily small, the proof is complete.
-
-\end{proof}
-
 \subsection*{Problem 6.6:4}
 
 Let $f$ be a function on $[a, b]$, and $\alpha$, $\beta$ monotonically increasing nonnegative functions on $[a, b]$ such that $f \in \RiemannIntable(\alpha) \cap \RiemannIntable(\beta)$, $\alpha \in \RiemannIntable(\beta)$, and $\beta \in \RiemannIntable(\alpha)$. Prove that
@@ -275,7 +224,7 @@ Adding the inequalities and using the Triangle Inequality gives
 \begin{align*}
 \bigg|
 \int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) & \\
-\sum_{i=1}^n \Big[
++ \sum_{i=1}^n \Big[
 -\left[f_{x_{i-1}}(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
 + f_{x_i}(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i}) \right] & \\
 + f_{x_i}\alpha_{x_i}(\beta_{x_i} - \beta_{x_{i-1}})
@@ -283,6 +232,37 @@ Adding the inequalities and using the Triangle Inequality gives
 \Big] \bigg| &
 < 3\epsilon
 \end{align*}
+
+Simplifying,
+
+\[
+\bigg|
+\int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) +
+\sum_{i=1}^n \Big[
+(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}})
+\Big] \bigg|
+< 3\epsilon
+\]
+
+To analyze the sum on the right, note that
+
+\begin{align*}
+\bigg|
+\sum_{i=1}^n \Big[(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}})
+\bigg| & \leq \\
+\sum_{i=1}^n \left|f_{x_i} - f_{x_{i-1}}\right| \left|\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}}\right| & \leq \\
+\sum_{i=1}^n \left(\sup_{x \in [x_{i-1}, x_i]} f(x) - \inf_{x \in [x_{i-1}, x_i]} f(x)\right)
+\left(\alpha_{x_i}\beta_{x_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}}\right) & < \epsilon
+\end{align*}
+
+The second inequality comes from the fact $t_i$ is in $(x_{i-1}, x_i)$, and the third inequality comes from $P$ being a refinement of $P_1$. Thus
+
+\[
+\bigg| \int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) \bigg|
+< 4\epsilon
+\]
+
+Which can be made arbitrarily close to 0.
 
 \end{proof}
 
