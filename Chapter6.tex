@@ -17,6 +17,67 @@
 
 \section*{6.6 Integration and Differentiation}
 
+\subsection*{Problem 6.R:13}
+Let $f(x) = \int_{t=x}^{t=x+1} \sin(t^2)dt$.
+\subsubsection*{a}
+Show that when $x>0$, $|f(x)| < \frac{1}{x}$. 
+
+\begin{proof}
+Note that $x>0$ implies that the limits of integration are correct. Make the substitution $t^2 = u$ to get
+\[
+f(x) = \frac{1}{2} \int_{u = x^2}^{u = (x+1)^2} u^{-\frac{1}{2}} \sin(u)du
+\]
+
+Integrate by parts with $a = u^{\frac{1}{2}}$ and $db = \sin(u)$ to get
+\begin{align*}
+f(x) &= \frac{1}{2}
+\left[
+-u^{-\frac{1}{2}}\cos(u)]_{x^2}^{(x+1)^2}
+-\frac{1}{2} \int_{x^2}^{(x+1)^2} u^{-\frac{3}{2}} \cos(u)du
+\right] \\
+&= \frac{\cos(x^2)}{2x} - \frac{\cos((x+1)^2)}{2(x+1)} - \frac{1}{4} \int_{x^2}^{(x+1)^2} u^{-\frac{3}{2}} \cos(u)du
+\end{align*}
+
+Evaluating the integral on the right, $\cos(x) \geq -1$, so
+\[
+\int_{x^2}^{(x+1)^2} u^{-\frac{3}{2}} \cos(u)du
+\geq - \int_{x^2}^{(x+1)^2} u^{-\frac{3}{2}} du
+= 2 \left(\frac{1}{x+1} - \frac{1}{x} \right)
+\]
+
+Substituting,
+\begin{align*}
+f(x) &\leq \frac{\cos(x^2)}{2x} - \frac{\cos((x+1)^2)}{2(x+1} - \frac{1}{2(x+1)} + \frac{1}{2x} \\
+&= \frac{\cos(x^2) + 1}{2x} - \frac{\cos((x+1)^2) + 1}{2(x+1)} \\
+& \leq \frac{2}{2x} = \frac{1}{x}
+\end{align*}
+
+Since $\cos(t) \leq 1$. Similarly,
+\begin{align*}
+-f(x) &= \frac{\cos((x+1)^2)}{2(x+1} - \frac{\cos(x^2)}{2x} + \frac{1}{4} \int_{x^2}^{(x+1)^2} u^{-\frac{3}{2}} \cos(u)du \\
+&\geq \frac{\cos((x+1)^2)}{2(x+1} - \frac{\cos(x^2)}{2x} + \frac{1}{2(x+1)} - \frac{1}{2x} \\
+&\geq -\frac{2}{2x} = \frac{1}{x}
+\end{align*}
+
+Since $\cos(t) \geq -1$.
+
+\end{proof}
+
+\subsubsection*{b}
+Prove that there exists constant $c$ and function $r(x)$ with $|r(x)| < |frac{c}{x}$ such that
+\[
+2xf(x) = \cos(x^2) - \cos((x+1)^2) + r(x)
+\]
+
+\begin{proof}
+From results in Part a,
+\[
+2xf(x) = \cos(x^2) - \frac{x}{x+1}\cos((x+1)^2)
+- \frac{x}{2} \int_{x^2}^{(x+1)^2} u^{-\frac{3}{2}} \cos(u)du
+\]
+
+\end{proof}
+
 \subsection*{Problem 6.6:1}
 
 On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
@@ -200,7 +261,7 @@ Writing out the difference between the upper and lower Riemann sums,
 + \beta(b)\sum_{i=1}^n (M_i - m_i) \Delta\alpha_i
 \end{align*}
 
-The third line follows because all terms are positive, and $\alpha$ and $\beta$ are monotonically increasing. Because $f \in \RiemannIntable(\alpha)\cap \RiemannIntable(\beta)$, the third line can be made arbitrarily small.
+The third line follows because all terms are positive, and $\alpha$ and $\beta$ are monotonically increasing. Because $f \in \RiemannIntable(\alpha)\cap \RiemannIntable(\beta)$, there exist partitions that make the third line arbitrarily small.
 
 \end{proof}
 \end{theorem}
