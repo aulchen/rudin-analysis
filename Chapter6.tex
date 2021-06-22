@@ -6,8 +6,9 @@
   \mathfrak{R}
 }
 
-\newtheorem{theorem}{Theorem}[subsection]
-\newtheorem{lemma}{Lemma}[subsubsection]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \author{Arthur Chen}
 \title{Rudin Chapter 6}
@@ -117,7 +118,14 @@ xf(x) = \frac{\cos(x^2))}{2} - \frac{\cos((x+1)^2)}{2} + s(x)
 \]
 where $|s(x)| \leq \frac{1}{x}$. $\lim_{x\rightarrow\infty} s(x) = 0$, so the upper and lower limits of $s(x)$ are also $0$.
 
-Note that by the periodicity of cosine, for $n \in N$, $cos(\sqrt{2\pi n}^2) = 1$. We now show that there exist infinite $n \in N$ such that $\cos((\sqrt{2\pi n}+1)^2) = \cos(2\pi n + 2\sqrt{2 \pi n} + 1) = -1$, thus implying that $\limsup_{n\rightarrow\infty} xf(x) = 1$.
+Note that by the periodicity of cosine, for $n \in N$, $\cos(\sqrt{2\pi n}^2) = 1$. We now show that there exist infinite $n \in N$ such that $\cos((\sqrt{2\pi n}+1)^2) = \cos(2\pi n + 2\sqrt{2 \pi n} + 1) = -1$, thus implying that $\limsup_{n\rightarrow\infty} xf(x) = 1$.
+
+\begin{theorem}
+\label{NearCosine}
+Let $\delta > 0$. Then there exist infinite natural numbers $a$ such that $|2\sqrt{2a\pi} + 1 - \pi| < \delta \left(\mod 2\pi \right)$. In other words, $2\sqrt{2a\pi} + 1$ becomes arbitrarily close to a number of the form $b\pi$, where $b$ is an odd number.
+\end{theorem}
+
+To prove this, we will need to analyze the behavior of $g(x) = 2\sqrt{2\pi}\sqrt{x} + 1$, then evaluate it at specifically chosen $a$'s. We first start by analyzing the Taylor series of $\sqrt{x}$.
 
 \begin{lemma}
 \label{SquareRootTaylorSeries}
@@ -166,42 +174,74 @@ and the right series is a convergent geometric series under the assumption that 
 
 \end{proof}
 
-\begin{theorem}
+We next show that viewed as a sequence over the natural numbers, $(g_n)$'s differences between terms become arbitrarily small.
+
+\begin{lemma}
 \label{LimitDeltaGIs0}
 Let $(g_n) = 2\sqrt{2 \pi}\sqrt{n} + 1$ for $n \in N$, and $\Delta g_n = g_{n+1} - g_n = 2\sqrt{2}(\sqrt{n+1} - \sqrt{n})$. Then $\lim_{n\rightarrow\infty} \Delta g_n = 0$.
-\end{theorem}
+\end{lemma}
 
 \begin{proof}
-It suffices to show that $\lim_{n\rightarrow\infty} \sqrt{n+1} - \sqrt{n} = 0$. The Taylor series of $\sqrt{x}$ around $n$ is
+It suffices to show that $\lim_{n\rightarrow\infty} \sqrt{n+1} - \sqrt{n} = 0$. From the results in Theorem \ref{SquareRootTaylorSeries}, the Taylor series of $\sqrt{x}$ at $n$ is
 
-\begin{align*}
-T(x) = & \sqrt{n} + \frac{1}{2(1!)} n^{-\frac{1}{2}}(x-n)
-- \frac{1}{2^2(2!)} n^{-\frac{3}{2}}(x-n)^2
-+ \frac{3}{2^3(3!)} n^{-\frac{5}{2}}(x-n)^3 \dots \\
-= &\sqrt{n} + \frac{1}{2(1!)} n^{-\frac{1}{2}}(x-n) + \sum_{i=2}^{\infty} \frac{(-1)^{i-1}}{2^i} \frac{1(3)(5)...(2i-3)}{i!} n^{-i + \frac{1}{2}}(x-n)^i
-\end{align*}
-
-Noting that
 \[
-\frac{1(3)(5)...(2i-3)}{2^i} < \frac{1}{4} \left(\frac{1}{2}\right)
-\left(\frac{3}{2}\right)\left(\frac{5}{2}\right)\dots \frac{2i-3}{2} 
-< \frac{1}{4} 1(2)(3)\dots i
-= \frac{1}{4} i!
+\sqrt{n+x} = \sqrt{n} + \frac{1}{2(1!)} n^{-\frac{1}{2}}(x) + \sum_{i=2}^{\infty} \frac{(-1)^{i-1}}{2^i} \frac{1(3)(5)...(2i-3)}{i!} n^{-i + \frac{1}{2}}(x)^i
 \]
 
-and using the Alternating Series Test, whenever $|\frac{x}{n} - 1| < 1$, the Taylor series converges. Thus the radius of convergence of $T(x)$ is $n$. When $x > n$ and $T(x)$ is convergent, $T(x)$ is alternating, implying that the partial Taylor polynomials truncated at a positive term are larger than the actual value of $\sqrt{x}$. Thus when $x > n$,
+Since the series is alternating and convergent, its partial sums that have a positive term as their highest power are larger than the series. Thus
+
 \[
-\sqrt{n+x} \leq \sqrt{n} + \frac{1}{2(1!)} n^{-\frac{1}{2}}(x-n)
+\sqrt{n+1} < \sqrt{n} + \frac{1}{2\sqrt{n}}
 \]
+
+implying
+
+\[
+0 \leq \sqrt{n+1}- \sqrt{n} < \frac{1}{2\sqrt{n}}
+\]
+
+implying that $\lim_{n\rightarrow\infty} \sqrt{n+1} - \sqrt{n} = 0$.
 
 \end{proof}
 
-\begin{theorem}
-\label{NearCosine}
-Let $\delta > 0$. Then there exist infinite natural numbers $a$ such that $2\sqrt{2a\pi} + 1 - \pi \mod 2\pi < \delta$. 
-\end{theorem}
+We are now in the position to prove Theorem \ref{NearCosine}.
+
 \begin{proof}
-Let $(g_n)$ be the sequence defined by $g_i = 2\sqrt{2\pi}\sqrt{i} + 1 - \pi$. 
+Let $(g_n)$ be the sequence defined by $g_n = 2\sqrt{2\pi}\sqrt{n} + 1 - \pi$. Since $\lim_{n\rightarrow\infty} \Delta g_n = 0$, there exists $n_0 \in \mathbb{N}$ such that $n \geq n_0$ implies that $\Delta g_n < \delta$. This, combined with $(g_n)$ being strictly increasing and $\lim_{n\rightarrow\infty} g_n = \infty$, imply that $(g_n)$ passes through all numbers greater than $g_{n_0}$ while increasing to infinity, while taking step sizes less than $\delta$.
+
+Specifically, for any natural number $b$ such that $2\pi b > g_{n_0}$, there exists an $a \geq n_0$ in the natural numbers such that
+\[
+g_a \leq 2\pi b < g_{a+1}
+\]
+
+$\Delta g_a < \delta$ implies
+\[
+|\Delta g_a - 2\pi b| < \delta
+\]
+which is equivalent to
+\[
+|2\sqrt{2\pi}\sqrt{a} + 1 - (2b + 1)\pi| < \delta
+\]
+The theorem follows because for distinct $b$, $(g_n)$ being strictly increasing implies that the $a$'s are distinct.
+\end{proof}
+
+The results of the main problem now follow.
+
+\begin{lemma}
+\label{limsupResult}
+$\limsup_{n\rightarrow\infty} xf(x) = \frac{\cos(x^2))}{2} - \frac{\cos((x+1)^2)}{2} + s(x) = 1$
+\end{lemma}
+
+\begin{proof}
+From Theorem \ref{NearCosine} and the continuity of $\cos(x)$, for all $\epsilon > 0$, there exist infinite $n \in \mathbb{N}$ such that $\cos(x^2) = \cos(\sqrt{2\pi n}^2) = 1$ and $|\cos\left((x+1)^2\right) + 1| = |\cos\left((\sqrt{2\pi n}+1)^2\right) + 1| < \epsilon$. As previously established, $\limsup_{x\rightarrow\infty} s(x) = 0$. 
+\end{proof}
+
+\begin{corollary}
+$\liminf_{n\rightarrow\infty} xf(x) = \frac{\cos(x^2))}{2} - \frac{\cos((x+1)^2)}{2} + s(x) = -1$
+\end{corollary}
+
+\begin{proof}
+Add $\pi$ to the $a$'s in Lemma \ref{limsupResult}.
 \end{proof}
 
 \subsection*{Problem 6.6:1}
