@@ -244,6 +244,37 @@ $\liminf_{n\rightarrow\infty} xf(x) = \frac{\cos(x^2))}{2} - \frac{\cos((x+1)^2)
 Add $\pi$ to the $a$'s in Lemma \ref{limsupResult}.
 \end{proof}
 
+\subsubsection*{d}
+
+Does $\int_0^\infty \sin(t^2)dt$ converge?
+
+\begin{theorem}
+$\int_0^\infty \sin(t^2)dt$ converges.
+
+\begin{proof}
+For finite $n$,
+\begin{align*}
+\int_0^n \sin(t^2)dt &= \int_0^1 \sin(t^2)dt + f(1) + f(2) \dots + f(n-1) \\
+&= \int_0^1 \sin(t^2)dt + \sum_{i=1}^{n-1}f(i) \\
+&= \int_0^1 \sin(t^2)dt + \frac{1}{2}\sum_{i=1}^{n-1}\left[
+\frac{\cos(i^2)}{i} - \frac{\cos\left((i+1)^2\right)}{i} \right]
++ \frac{1}{2}\sum_{i=1}^{n-1} \frac{r(i)}{i}
+ \\
+\end{align*}
+
+Taking limits as n approaches infinity, $\sum_{i=1}^\infty \frac{r(i)}{i}$ converges due to a comparison with $\sum_{i=1}^\infty \frac{1}{i^2}$. To show convergence, we have to show that $\sum_{i=1}^{\infty}\frac{\cos(i^2)}{i} - \frac{\cos\left((i+1)^2\right)}{i}$ converges. Writing out the first few terms of the partial sum,
+\begin{align*}
+\sum_{i=1}^{n-1} \frac{\cos(i^2)}{i} - \frac{\cos\left((i+1)^2\right)}{i}
+&= \frac{\cos(1)}{1} - \frac{\cos(4)}{1} + \frac{\cos(4)}{2} - \frac{\cos(9)}{2} + \frac{\cos(9)}{3} - \frac{\cos(16)}{3} \dots \\
+&= \frac{\cos(1)}{1} - \frac{\cos(4)}{1*2} - \frac{\cos(9)}{2*3} \dots
+- \frac{\cos\left((n-1)^2\right)}{(n-2)(n-1)} - \frac{\cos(n^2)}{n-1} \\
+&= \frac{\cos(1)}{1} - \frac{\cos(n^2)}{n-1} 
+- \sum_{i=1}^{n-2} \frac{\cos\left((i+1)^2\right)}{i(i+1)}
+\end{align*}
+Taking the limits as n goes to infinity, $\frac{cos(n^2)}{n-1}$ goes to zero. The sum on the right is absolutely convergent by comparing it with $\sum_{i=1}^\infty \frac{1}{i^2}$, so the sum on the right is convergent. Thus $\sum_{i=1}^{\infty}\frac{\cos(i^2)}{i} - \frac{\cos\left((i+1)^2\right)}{i}$, and by extension $\int_0^\infty \sin(t^2)dt$, converge.
+\end{proof}
+\end{theorem}
+
 \subsection*{Problem 6.6:1}
 
 On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
@@ -496,7 +527,7 @@ Simplifying,
 \bigg|
 \int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) +
 \sum_{i=1}^n \Big[
-(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}})
+(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_i} - \alpha_{x_i}\beta_{x_{i-1}})
 \Big] \bigg|
 < 3\epsilon
 \]
@@ -505,15 +536,15 @@ To analyze the sum on the right, note that
 
 \begin{align*}
 \bigg|
-&\sum_{i=1}^n \Big[(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}})
+&\sum_{i=1}^n \Big[(f_{x_i} - f_{x_{i-1}}) (\alpha_{t_i}\beta_{t_i} - \alpha_{x_i}\beta_{x_{i-1}})
 \bigg| \\
-\leq &\sum_{i=1}^n \left|f_{x_i} - f_{x_{i-1}}\right| \left|\alpha_{t_i}\beta_{t_{i-1}} - \alpha_{x_i}\beta_{x_{i-1}}\right| \\
+\leq &\sum_{i=1}^n \left|f_{x_i} - f_{x_{i-1}}\right| \left|\alpha_{t_i}\beta_{t_i} - \alpha_{x_i}\beta_{x_{i-1}}\right| \\
 \leq &\sum_{i=1}^n \left(\sup_{x \in [x_{i-1}, x_i]} f(x) - \inf_{x \in [x_{i-1}, x_i]} f(x)\right)
 \left(\alpha_{x_i}\beta_{x_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}}\right) \\
 < &\epsilon
 \end{align*}
 
-The second inequality comes from noticing that $t_i$ is in $(x_{i-1}, x_i)$, and that $\alpha\beta$ is weakly increasing. The third inequality comes from $P$ being a refinement of $P_1$. Thus
+The second inequality comes from noticing that $t_i$ is in $(x_{i-1}, x_i)$, and that $\alpha$ and $\beta$ are weakly increasing. The third inequality comes from $P$ being a refinement of $P_1$. Thus
 
 \[
 \bigg| \int f d(\alpha\beta) - \int f\alpha d(\beta) - \int f\beta d(\alpha) \bigg|
