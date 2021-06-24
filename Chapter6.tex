@@ -275,6 +275,52 @@ Taking the limits as n goes to infinity, $\frac{cos(n^2)}{n-1}$ goes to zero. Th
 \end{proof}
 \end{theorem}
 
+\subsection*{Problem 6.R.14}
+
+let $f(x) = \int_x^{x+1}\sin(e^t)dt$.
+
+\subsubsection*{a}
+Show that $e^x|f(x)| < 2$.
+
+\begin{proof}
+Making the substitution $u = e^t$,
+\[
+f(x) = \int_{e^x}^{e^{x+1}} \frac{\sin(u)}{u}du
+\]
+
+Integrating by parts with $a = u^{-1}$ and $db = \sin(u)$,
+
+\begin{align*}
+f(x) &= -u^{-1}\cos(u)\Big]_{e^x}^{e^{x+1}} - \int_{e^x}^{e^{x+1}} u^{-2}\cos(u)du \\
+&= \frac{\cos(e^x)}{e^x} - \frac{\cos(e^{x+1})}{e^{x+1}} - \int_{e^x}^{e^{x+1}} u^{-2}\cos(u)du
+\end{align*}
+
+implies
+
+\begin{align*}
+xf(x) &= \cos(e^x) - e^{-1}\cos(e^{x+1}) - e^x\int_{e^x}^{e^{x+1}} u^{-2}\cos(u)du \\
+&\leq 1 + \frac{1}{e} + e^x\int_{e^x}^{e^{x+1}} u^{-2}du \\
+&= 1 + \frac{1}{e} - e^x\left[\frac{1}{u}\right]_{e^x}^{e^{x+1}} \\
+&= 1 + \frac{1}{e} + 1 - \frac{1}{e} = 2
+\end{align*}
+
+Similarly,
+
+\[
+xf(x) \geq -1 - \frac{1}{e} - e^x\int_{e^x}^{e^{x+1}} u^{-2}du = -2
+\]
+
+\end{proof}
+
+\subsubsection*{b}
+
+Show that $e^x f(x) = \cos(e^x) - e^{-1}\cos(e^{x+1}) + r(x)$, where $|r(x)| < Ce^{-x}$, for some constant $C$.
+
+\begin{proof}
+From the form above, it's clear that $r(x) = - e^x\int_{e^x}^{e^{x+1}} u^{-2}\cos(u)du$.
+
+\end{proof}
+
 \subsection*{Problem 6.6:1}
 
 On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
