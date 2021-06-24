@@ -317,7 +317,55 @@ xf(x) \geq -1 - \frac{1}{e} - e^x\int_{e^x}^{e^{x+1}} u^{-2}du = -2
 Show that $e^x f(x) = \cos(e^x) - e^{-1}\cos(e^{x+1}) + r(x)$, where $|r(x)| < Ce^{-x}$, for some constant $C$.
 
 \begin{proof}
-From the form above, it's clear that $r(x) = - e^x\int_{e^x}^{e^{x+1}} u^{-2}\cos(u)du$.
+From the form above, it's clear that $r(x) = - e^x\int_{e^x}^{e^{x+1}} u^{-2}\cos(u)du$. Integrating by parts with $a = u^{-2}$ and $db = \cos(u)$,
+
+\begin{align*}
+r(x) &= -e^{x} \left[
+u^{-2}\sin(u)\Big|_{e^x}^{e^{x+1}} + 2\int_{e^x}^{e^{x+1}} u^{-3}\sin(u)du \right] \\
+&= \frac{\sin(e^x)}{e^x} - \frac{\sin(e^{x+1})}{e^{x+2}} - 2e^x\int_{e^x}^{e^{x+1}}u^{-3}\sin(u)du \\
+&\leq \frac{1}{e^x} + \frac{1}{e^{x+2}} + 2e^x\int_{e^x}^{e^{x+1}}u^{-3}du \\
+&= \frac{1}{e^x} + \frac{1}{e^{x+2}} -e^x\left[\frac{1}{e^{2x+2}} - \frac{1}{e^x}\right] = \frac{2}{e^x}
+\end{align*}
+
+Similarly,
+\[
+r(x) \geq -\frac{1}{e^x} - \frac{1}{e^{x+2}} - 2e^x\int_{e^x}^{e^{x+1}}u^{-3}du = \frac{-2}{e^x}
+\]
+
+\end{proof}
+
+\subsection*{Problem 6.R.15}
+Let $f$ be real and continuously differentiable on $[a, b]$, with $f(a) = f(b) = 0$ and $\int_a^b f^2(x)dx = 1$. Prove that\ $\int_a^b xf(x)f'(x)dx = -\frac{1}{2}$ and $\int_a^b[f'(x)]^2dx \int_a^b x^2f^2(x)dx > \frac{1}{4}$.
+
+\begin{proof}
+Integrating $\int_a^b f^2(x)dx$ by parts with $a = f^2(x)$ and $db = 1$,
+\[
+1 = \int_a^bf^2(x)dx = xf^2(x)\Big|_a^b - 2\int_a^bxf(x)f'(x)dx = - 2\int_a^bxf(x)f'(x)dx
+\]
+
+Similarly, by the Cauchy-Schwartz inequality,
+\[
+\frac{1}{2} = \left|\int_a^b xf(x)f'(x)dx \right|
+\leq \left[ \int_a^b (f'(x))^2 dx\right]^\frac{1}{2} \left[ \int_a^b x^2f^2(x)dx \right]^\frac{1}{2}
+\]
+
+\begin{lemma}
+$\int_a^b (f'(x))^2 dx > 0$
+\end{lemma}
+
+\begin{proof}
+$f(a) = f(b) = 0$ implies that if $f$ is a constant function, it must be the zero function. $\int_a^b f^2(x)dx \neq 0$ implies that $f$ is not the zero function. Thus, $f'$ is not the zero function. Since $f'$ is continuous, ${f'}^2$ is continuous and nonzero, implying that $\int_a^b (f'(x))^2 dx > 0$.
+\end{proof}
+
+\begin{lemma}
+$\int_a^b x^2 f^2(x) dx > 0$
+\end{lemma}
+
+\begin{proof}
+$f$ is continuous and nonzero implies that $f^2$ and $x^2 f^2$ are continuous and nonzero.
+\end{proof}
+
+The Cauchy-Schwartz inequality only holds with equality when at least one of the vectors has norm zero. Since $\int_a^b (f'(x))^2 dx$ and $\int_a^b x^2 f^2(x) dx$ are nonzero, the inequality is strict.
 
 \end{proof}
 
