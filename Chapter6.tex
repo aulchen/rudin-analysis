@@ -369,6 +369,58 @@ The Cauchy-Schwartz inequality only holds with equality when at least one of the
 
 \end{proof}
 
+\subsection*{Problem 6.R.16}
+
+For $1 < s < \infty$, define
+\[
+\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s}
+\]
+
+\subsubsection*{a}
+
+Prove that
+\[
+\zeta(s) = s\int_1^\infty \frac{[x]}{x^{s+1}}dx
+\]
+
+where $[x]$ denotes the greatest integer $\leq x$.
+
+\begin{proof}
+Denote $f_N(s) = s\int_1^N \frac{[x]}{x^{s+1}}dx$ for $N \in \mathbb{N}$, $N > 1$. Splitting the integral and evaluating the greatest integer function,
+
+\begin{align*}
+f_N(s) &= s\int_1^N \frac{[x]}{x^{s+1}}dx \\
+&= s\left(
+\int_1^2 \frac{1}{x^{s+1}}dx + \int_2^3 \frac{2}{x^{s+1}}dx + \dots + \int_{N-1}^N \frac{N-1}{x^{s+1}}dx
+\right) \\
+&= s \sum_{i=1}^{N-1} i \int_i^{i+1}\frac{1}{x^{s+1}} dx
+= -\sum_{i=1}^{N-1} i (x)_i^{i+1} = \sum_{i=1}^{N-1} i\left(\frac{1}{i^s} - \frac{1}{(i+1)^s} \right) \\
+&= 1\left(\frac{1}{1^s} - \frac{1}{2^s}\right) 
++ 2\left(\frac{1}{2^s} - \frac{1}{3^s}\right)
++ 3\left(\frac{1}{3^s} - \frac{1}{4^s}\right)
++ \dots + (N-1)\left( \frac{1}{(N-1)^s} - \frac{1}{N^s} \right) \\
+&= \frac{1}{1^s} + \frac{1}{2^s} + \frac{1}{3^s} + \dots + \frac{1}{(N-1)^s} - \frac{N-1}{N^s} \\
+&= \sum_{i=1}^{N-1} \frac{1}{i^s} - \frac{N-1}{N^s}
+\end{align*}
+
+Let $\zeta_N(s) = \sum_{i=1}^N \frac{1}{i^s}$ be the nth partial sum of $\zeta(s)$. Taking the difference between $f_N(s)$ and $\zeta_N(s)$,
+
+\begin{align*}
+|f_N(s) - \zeta_N(s)| &= \left| \sum_{i=1}^{N-1} \frac{1}{i^s} - \sum_{i=1}^N \frac{1}{i^s} - \frac{N-1}{N^s} \right| \\
+&= \frac{1}{N^{s-1}}
+\end{align*}
+
+Since $s > 1$, the difference goes to 0 as N approaches infinity.
+
+\end{proof}
+
+\subsubsection*{b}
+
+Prove that
+\[
+\zeta(s) = \frac{s}{s-1} - s\int_1^\infty \frac{x -[x]}{x^{s+1}}dx
+\]
+
 \subsection*{Problem 6.6:1}
 
 On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
