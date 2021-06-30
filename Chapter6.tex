@@ -421,6 +421,34 @@ Prove that
 \zeta(s) = \frac{s}{s-1} - s\int_1^\infty \frac{x -[x]}{x^{s+1}}dx
 \]
 
+\begin{proof}
+Taking the integral to $N$ and splitting the integral,
+
+\[
+\frac{s}{s-1} - s \int_1^N \frac{x -[x]}{x^{s+1}}dx = \frac{s}{s-1} - s\int_1^N \frac{1}{x^s}dx + f_N(s)
+\]
+
+Since $f_N{s} \rightarrow \zeta(s)$ as n approaches infinity, we need to show that $\frac{s}{s-1} - s\int_1^N \frac{1}{x^s}dx \rightarrow 0$. Integrating,
+
+\[
+s\int_1^N \frac{1}{x^s}dx = -\frac{s}{s-1} \left( \frac{1}{x^{s-1}} \right)_1^N = -\frac{s}{s-1} \left(\frac{1}{N^{s-1}} - 1\right)
+\]
+
+As n approaches infinity, this approaches $-\frac{s}{s-1}$, so $\frac{s}{s-1} - s\int_1^N \frac{1}{x^s}dx \rightarrow 0$.
+\end{proof}
+
+\subsubsection*{c}
+
+Prove that the integral in Part b converges for $s > 0$.
+
+\begin{proof}
+\[
+\int_1^N \frac{x - [x]}{x^{s+1}}dx \leq \int_1^N \frac{1}{x^{s+1}}dx = -\frac{1}{s}\left( \frac{1}{x^s} \right)_1^N = -\frac{1}{s}\left[\frac{1}{N^s} - 1 \right]
+\]
+
+When $s>0$, this converges to $\frac{1}{s}$ as n approaches infinity.
+\end{proof}
+
 \subsection*{Problem 6.6:1}
 
 On $[a, b]$, let $\alpha$ be a strictly increasing function and $f$ a continuous function, and for $x \in [a, b]$ define $F(x) = \int_a^x f(t) d\alpha(t)$. Show that for all $x \in [a, b]$, $\frac{dF(x)}{d \alpha(x)} = f(x)$, where the left-hand side is defined as $\lim_{t \to x} \frac{F(x) - F(t)}{\alpha(x) - \alpha(t)}$, and the equality includes the assertion that the limit exists.
