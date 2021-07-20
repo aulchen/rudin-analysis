@@ -1,11 +1,13 @@
-\documentclass{amsart}
-\usepackage{mathtools}
-\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 
 \newcommand{\RiemannIntable}{
   \mathfrak{R}
 }
 
+\newenvironment{proof}{\paragraph{Proof:}}{\hfill$\square$}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -650,34 +652,34 @@ Let $P$ be their common partition. Let $x_0 < x_1 ... < x_n$ denote the points o
 Consider $\int f d(\alpha\beta)$ and its associated Riemann-Stieltjes sum over $P^*$. Since $P^*$ is a refinement of $P_1$, for arbitrary points $u_i \in [x_{i-1}, t_i]$ and $v_i \in [t_i, x_i]$,
 
 \[
-\abs*{ \sum_{i=1}^n \left[f(u_i)(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
+|\sum_{i=1}^n \left[f(u_i)(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
 + f(v_i)(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i})\right]
-- \int f d(\alpha\beta)}
+- \int f d(\alpha\beta)|
 < \epsilon
 \]
 
 Letting $u_i = x_{i-1}$ and $v_i = x_i$ for all $i$,
 
 \[
-\abs*{ \sum_{i=1}^n \left[f_{x_{i-1}}(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
+|\sum_{i=1}^n \left[f_{x_{i-1}}(\alpha_{t_i}\beta_{t_i} - \alpha_{x_{i-1}}\beta_{x_{i-1}})
 + f_{x_i}(\alpha_{x_i}\beta_{x_i} - \alpha_{t_i}\beta_{t_i})\right]
-- \int f d(\alpha\beta)}
+- \int f d(\alpha\beta)|
 < \epsilon
 \]
 
 Now consider $\int f\alpha d(\beta)$ and its associated Riemann-Stieltjes sum over $P$. Letting $u_i = x_i$ for all $i$,
 
 \[
-\abs*{ \sum_{i=1}^n \left[f_{x_i}\alpha_{x_i}(\beta_{x_i} - \beta_{x_{i-1}})\right]
-- \int f\alpha d(\beta)}
+|\sum_{i=1}^n \left[f_{x_i}\alpha_{x_i}(\beta_{x_i} - \beta_{x_{i-1}})\right]
+- \int f\alpha d(\beta)|
 < \epsilon
 \]
 
 Similarly, considering $\int f\beta d(\alpha)$ over $P$ and letting $u_i = x_{i-1}$ for all $i$,
 
 \[
-\abs*{ \sum_{i=1}^n \left[f_{x_{i-1}}\beta_{x_{i-1}}(\alpha_{x_i} - \alpha_{x_{i-1}})\right]
-- \int f\beta d(\alpha)}
+|\sum_{i=1}^n \left[f_{x_{i-1}}\beta_{x_{i-1}}(\alpha_{x_i} - \alpha_{x_{i-1}})\right]
+- \int f\beta d(\alpha)|
 < \epsilon
 \]
 
