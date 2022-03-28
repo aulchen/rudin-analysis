@@ -7,6 +7,8 @@
   \mathfrak{R}
 }
 
+\newcommand{\R}{\mathbb{R}}
+
 \newenvironment{proof}{\paragraph{Proof:}}{\hfill$\square$}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -450,6 +452,128 @@ Prove that the integral in Part b converges for $s > 0$.
 
 When $s>0$, this converges to $\frac{1}{s}$ as n approaches infinity.
 \end{proof}
+
+\subsection*{Problem 6.R.17}
+
+Suppose that $\alpha$ increases monotonically on $[a, b]$, $g$ is continuous, and $g(x) = G'(x)$ for $a \leq x \leq b$. Prove that
+
+\[
+\int_a^b \alpha(x) g(x) dx = G(b)\alpha(b) - G(a)\alpha(a) - \int_a^bGd\alpha
+\]
+
+\begin{lemma}
+\label{GTiLemma}
+For all partitions $P = \{x_0, x_1 \dots x_n\}$, there exist $t_i \in (x_{i-1}, x_i)$ such that $g(t_i)\Delta x_i = G(x_i) - G(x_{i-1})$.
+\begin{proof}
+$G$ is an antiderivative of a continuous function $g$, and thus differentiable. The statement follows by using the Mean Value Theorem.
+\end{proof}
+\end{lemma}
+
+We will proceed along the lines that Rudin gives in his hint. By Theorem 3.41 in the book, let $\{a_n\}$ and $\{b_n\}$ be two sequences, and let
+
+\[
+A_n = \sum_{k=0}^n a_k
+\]
+
+be the partial sum sequence of $\{a_n\}$. Let $A_{-1} = 0$. Then if $0 \leq p \leq q$,
+
+\[
+\sum_{n=p}^q a_nb_n =  \sum_{n=p}^{q-1} A_n(b_n - b_{n+1}) + A_qb_q - A_{p-1}b_p
+\]
+
+We will let the sequence $\{a_n\}$ equal
+
+\[
+a_k = G(x_k) - G(x_{k-1})
+\]
+
+for $k \geq 1$, and $a_0 =0$. Thus $A_n = G(x_n) - G(x_0)$. By Lemma \ref{GTiLemma},
+
+\[
+a_k = g(t_i)\Delta x_i
+\]
+
+We will let $\{b_i\} = \alpha(x_i)$. Then utilizing the formula with $p=1, q = n$,
+
+\begin{align*}
+\sum_{i=1}^n a_ib_i &= 
+\sum_{i=1}^n \alpha(x_i)g(t_i)\Delta x_i = 
+\sum_{i=1}^{n-1}(G(x_i) - G(x_0))(\alpha_i - \alpha_{i+1}) + (G(x_n) - G(x_0))\alpha_n - A_0 \\
+&= -\sum_{i=1}^{n-1} G(x_i) \Delta \alpha_{i+1} - G(x_0)\sum_{i=1}^{n-1}(\alpha_i - \alpha_{i+1}) + (G(x_n) - G(x_0))\alpha_n \\
+&= -\sum_{i=2}^{n-1} G(x_{i-1}) \Delta \alpha_{i} - G(x_0)(\alpha_1 - \alpha_n) + (G(x_n) - G(x_0)) \alpha_n \\
+&= -\sum_{i=1}^{n-1} G(x_{i-1}) \Delta \alpha_{i} + G(x_0)(\alpha_1 - \alpha_0) - G(x_0)\alpha_1 + G(x_n)\alpha_n \\
+&= -\sum_{i=1}^n G(x_{i-1})\Delta \alpha_i + G(x_n)\alpha_n - G(x_0)\alpha_0
+\end{align*}
+
+The second line occurs from distributing the first sum, and realizing that $A_0 = 0$. The third line comes from reindexing the first sum and rewriting the second sum. The fourth line comes from cancelling out the $G(x_0)\alpha_n$ terms, and adding and subtracting a $G(x_0)(\alpha_1 - \alpha_n)$ term. Thus substituting $a, b$ for $x_0, x_n$, we get
+
+\[
+\sum_{i=1}^n \alpha(x_i) g(t_i) \Delta x_i = G(b)\alpha(b) - G(a) \alpha(a) - \sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i
+\]
+
+Note that if we can show that
+
+\[
+\sum_{i=1}^n \alpha(x_i) g(t_i) \Delta x_i \approx \sum_{i=1}^n \alpha(x_i) g(x_i) \Delta x_i
+\]
+
+and
+
+\[
+\sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i \approx \sum_{i=1}^n G(x_i) \Delta \alpha_i
+\]
+
+then
+
+\begin{align*}
+&\sum_{i=1}^n \alpha(x_i) g(x_i) \Delta x_i = G(b)\alpha(b) - G(a) \alpha(a) - \sum_{i=1}^n G(x_i) \Delta \alpha_i \\
+\Longrightarrow &\int_a^b \alpha(x) g(x) dx = G(b)\alpha(b) - G(a)\alpha(a) - \int_a^bGd\alpha
+\end{align*}
+
+as the mesh approaches zero, as desired.
+
+For the first equality, fix $\epsilon > 0$ and define $M = \sup_{x \in [a, b]} |\alpha(x)|$. Because $g$ is uniformly continuous, there exists $\delta > 0$ such that $|x-y| < \delta \Longrightarrow |g(x) - g(y)| < \frac{\epsilon}{M(b-a)}$. Taking the mesh to be finer than $\delta$, we get that
+
+\[
+|g(x_i) - g(t_i)| < \frac{\epsilon}{M(b-a)}
+\]
+
+for all $i = 0, 1 \dots n$. Then
+
+\begin{align*}
+&|\sum_{i=1}^n \alpha(x_i) g(t_i) \Delta x_i - \sum_{i=1}^n \alpha(x_i) g(x_i) \Delta x_i| \\
+\leq& \sum_{i=1}^n |\alpha(x_i)| |g(t_i)-g(x_i)| \Delta x_i \\
+\leq& M \frac{\epsilon}{M(b-a) }\sum_{i=1}^n \Delta x_i \\
+=& \epsilon
+\end{align*}
+
+Thus as the mesh goes to zero,
+
+\[\sum_{i=1}^n \alpha(x_i) g(t_i) \Delta x_i \rightarrow \sum_{i=1}^n \alpha(x_i) g(x_i) \Delta x_i \rightarrow \int_a^b \alpha(x) g(x) dx
+\]
+
+as desired. For the second equation, by the Fundamental Theorem of Calculus, $G$ is differentiable and continuous where $g$ is continuous. Fixing $\epsilon > 0$, there exists $\delta > 0$ such that
+
+\[
+G(x_{i-1}) - G(x_i)| < \frac{\epsilon}{\alpha(b) - \alpha(a)}
+\]
+
+Then
+
+\begin{align*}
+&|\sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i - \sum_{i=1}^n G(x_i) \Delta \alpha_i| \\
+\leq& \sum_{i=1}^n |G(x_i) - G(x_{i-1})| |\Delta \alpha_i| \\
+\leq& \frac{\epsilon}{\alpha(b) - \alpha(a)} \sum_{i=1}^n \Delta \alpha_i \\
+=& \frac{\epsilon}{\alpha(b) - \alpha(a)} (\alpha(b) - \alpha(a)) = \epsilon
+\end{align*}
+
+because $\alpha$ is monotonically increasing, so $\Delta \alpha_i$ is always positive. Thus
+
+\[
+\sum_{i=1}^n G(x_{i-1}) \Delta \alpha_i \rightarrow \sum_{i=1}^n G(x_i) \Delta \alpha_i \rightarrow \int_a^bGd\alpha
+\]
+
+as the mesh goes to zero, as desired.
 
 \subsection*{Problem 6.6:1}
 
